@@ -1,0 +1,13 @@
+---
+name: create-docker-image
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  create-docker-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: docker-run
+        run: |
+          docker --version
