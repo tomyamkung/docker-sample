@@ -47,10 +47,10 @@ jobs:
           # docker run -dit --name confirm-container -p 8080:80 -v "${{ github.workspace }}":/usr/local/apache2/htdocs/ created-image
           # docker ps -a          
 
-      # - name: check-created-image
-      #   uses: docker://created-image
-      #   with:
-      #     entrypoint: 'script.sh'
+      - name: check-created-image
+        uses: docker://created-image
+        with:
+          entrypoint: 'script.sh'
 
       - name: crean up workspace after action
         run: |
