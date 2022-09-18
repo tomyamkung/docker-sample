@@ -9,12 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: docker-run
+        id: check-container-id
         run: |
           docker run -dit --name my-apache-app -p 8080:80 -v "${{ github.workspace }}":/usr/local/apache2/htdocs/ httpd:2.4
-          docker ps | grep my-apache-app | awk '{print $1}'
-          echo "docker ps"
-          docker ps
+          echo docker ps | grep my-apache-app | awk '{print $1}'
+          echo "::setoutput name=container-id::$(echo docker ps | grep my-apache-app | awk '{print $1}')"
 
       - name: create-docker-image
         run: |
-          docker ps
+          echo "${{ fromJson(steps.check-container-id.outputs.contaier-id) }}"
