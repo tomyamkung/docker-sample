@@ -15,17 +15,24 @@ jobs:
         id: check-container-id
         run: |
           docker run -dit --name my-apache-app -p 8080:80 -v "${{ github.workspace }}":/usr/local/apache2/htdocs/ httpd:2.4
-          echo docker ps | grep my-apache-app | awk '{print $1}'
           echo "::set-output name=container-id::$(docker ps | grep my-apache-app | awk '{print $1}')"
 
-      - name: create-docker-image
+      - name: docker-commit
+        id: check-image-id
         run: |
           echo "${{ steps.check-container-id.outputs.container-id }}"
           docker commit ${{ steps.check-container-id.outputs.container-id }} created-image-step1
-          # sed -i '1s/^/FROM ${{ steps.check-container-id.outputs.container-id }}\n/' Dockerfile
-          # echo "check Dockerfile"
-          # cat Dockerfile
-          # docker build -t created-image .
+          echo docker images | grep created-image-step1 | awk '{print $3}'
+          echo "::set-output name=image-id::$(docker images | grep created-image-step1 | awk '{print $3}')"
+          docker images
+
+      - name: docker-build
+        run: |
+          echo "${{ steps.check-container-id.outputs.image-id }}"
+          sed -i '1s/^/FROM ${{ steps.check-container-id.outputs.image-id }}\n/' Dockerfile
+          echo "check Dockerfile"
+          cat Dockerfile
+          docker build -t created-image .
           docker images
 
       - name: crean up workspace after action
