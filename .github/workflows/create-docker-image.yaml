@@ -56,7 +56,7 @@ jobs:
       - name: confirm-inside-docker
         run: |
           pwd
-          ls- al 
+          ls -al 
 
       - name: crean up workspace after action
         run: |
