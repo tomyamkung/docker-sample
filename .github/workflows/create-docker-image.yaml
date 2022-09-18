@@ -24,5 +24,5 @@ jobs:
           sed -i '1s/^/FROM ${{ steps.check-container-id.outputs.container-id }}\n/' Dockerfile
           echo "check Dockerfile"
           cat Dockerfile
-          docker build -t created-image .
+          # docker build -t created-image .
           docker images
