@@ -17,4 +17,4 @@ jobs:
 
       - name: create-docker-image
         run: |
-          echo "${{ fromJson(steps.check-container-id.outputs.contaier-id) }}"
+          echo "${{ fromJson(steps.check-container-id.outputs.container-id) }}"
