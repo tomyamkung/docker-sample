@@ -35,13 +35,13 @@ jobs:
           cat Dockerfile
           docker build -t created-image .
           docker images
+          docker ps -a
+          docker run -dit --name confirm-container -p 8080:80 -v "${{ github.workspace }}":/usr/local/apache2/htdocs/ created-image
+          docker ps -a          
 
       - name: check-created-image
+        uses: docker://created-image
         run: |
-          docker ps -a
-          docker run -it --name confirm-container -p 8080:80 -v "${{ github.workspace }}":/usr/local/apache2/htdocs/ created-image
-          docker ps -a
-          docker exec -it confirm-container bash
           pwd
           ls -al
 
