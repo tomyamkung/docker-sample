@@ -18,6 +18,6 @@ jobs:
       - name: create-docker-image
         run: |
           echo "${{ steps.check-container-id.outputs.container-id }}"
-          sed -i 'FROM "${{ steps.check-container-id.outputs.container-id }}"' Dockerfile
+          sed -i '1s/^/FROM\n/' Dockerfile
           echo "check Dockerfile"
           cat Dockerfile
