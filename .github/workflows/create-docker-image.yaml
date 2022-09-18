@@ -39,9 +39,9 @@ jobs:
       - name: check-created-image
         run: |
           docker ps -a
-          docker run -dit --name confirm-container -p 8080:80 -v "${{ github.workspace }}":/usr/local/apache2/htdocs/ created-image
+          docker run -it --name confirm-container -p 8080:80 -v "${{ github.workspace }}":/usr/local/apache2/htdocs/ created-image
           docker ps -a
-          docker exec -T confirm-container bash
+          docker exec -it confirm-container bash
           pwd
           ls -al
 
