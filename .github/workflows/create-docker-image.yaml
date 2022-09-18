@@ -43,7 +43,7 @@ jobs:
           docker build -t created-image .
           docker images
           docker ps -a
-          docker push tomyamkung1206/image-sample:ver0.0.0
+          docker push created-image
           # docker run -dit --name confirm-container -p 8080:80 -v "${{ github.workspace }}":/usr/local/apache2/htdocs/ created-image
           # docker ps -a          
 
