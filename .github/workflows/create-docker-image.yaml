@@ -29,5 +29,6 @@ jobs:
           docker images
 
       - name: crean up workspace after action
-        sudo rm -rf ${{ github.workspace }}/*
-        sudo chown -R $(whoami):$(whoami) .    
+        run: |
+          sudo rm -rf ${{ github.workspace }}/*
+          sudo chown -R $(whoami):$(whoami) .    
