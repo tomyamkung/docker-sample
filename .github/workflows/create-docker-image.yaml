@@ -47,10 +47,16 @@ jobs:
           # docker run -dit --name confirm-container -p 8080:80 -v "${{ github.workspace }}":/usr/local/apache2/htdocs/ created-image
           # docker ps -a          
 
-      - name: check-created-image
-        uses: docker://created-image
-        with:
-          entrypoint: 'script.sh'
+  confirm-docker:
+    runs-on: ubuntu-latest
+    needs: [create-docker-image]
+    container: #起動するコンテナイメージを指定
+      image: tomyamkung1206/image-sample #指定のdockerイメージを使用
+    steps: #dockerコンテナ内でステップを実行
+      - name: confirm-inside-docker
+        run: |
+          pwd
+          ls- al 
 
       - name: crean up workspace after action
         run: |
