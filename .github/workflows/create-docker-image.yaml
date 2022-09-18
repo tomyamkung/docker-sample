@@ -35,6 +35,12 @@ jobs:
           docker build -t created-image .
           docker images
 
+      - name: check-created-image
+        run: |
+          docker run -it --name confirm-container -p 8080:80 -v "${{ github.workspace }}":/usr/local/apache2/htdocs/ created-image
+          pwd
+          ls -al
+
       - name: crean up workspace after action
         run: |
           sudo rm -rf ${{ github.workspace }}/*
