@@ -14,6 +14,7 @@ jobs:
       - name: docker-run
         id: check-container-id
         run: |
+          chmod +x script.sh
           docker run -dit --name my-apache-app -p 8080:80 -v "${{ github.workspace }}":/usr/local/apache2/htdocs/ httpd:2.4
           echo "::set-output name=container-id::$(docker ps | grep my-apache-app | awk '{print $1}')"
           docker stop my-apache-app
@@ -36,14 +37,13 @@ jobs:
           docker build -t created-image .
           docker images
           docker ps -a
-          docker run -dit --name confirm-container -p 8080:80 -v "${{ github.workspace }}":/usr/local/apache2/htdocs/ created-image
-          docker ps -a          
+          # docker run -dit --name confirm-container -p 8080:80 -v "${{ github.workspace }}":/usr/local/apache2/htdocs/ created-image
+          # docker ps -a          
 
       - name: check-created-image
         uses: docker://created-image
-        run: |
-          pwd
-          ls -al
+        with:
+          entrypoint: 'script.sh'
 
       - name: crean up workspace after action
         run: |
