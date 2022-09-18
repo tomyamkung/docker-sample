@@ -40,10 +40,10 @@ jobs:
           sed -i '1s/^/FROM ${{ steps.check-image-id.outputs.image-id }}\n/' Dockerfile
           echo "check Dockerfile"
           cat Dockerfile
-          docker build -t created-image .
+          docker build -t tomyamkung1206/image-sample .
           docker images
           docker ps -a
-          docker push created-image
+          docker push tomyamkung1206/image-sample
           # docker run -dit --name confirm-container -p 8080:80 -v "${{ github.workspace }}":/usr/local/apache2/htdocs/ created-image
           # docker ps -a          
 
