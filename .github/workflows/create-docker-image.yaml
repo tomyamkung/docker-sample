@@ -14,6 +14,7 @@ jobs:
       - name: docker-run
         id: check-container-id
         run: |
+          docker images
           docker run -dit --name my-apache-app -p 8080:80 -v "${{ github.workspace }}":/usr/local/apache2/htdocs/ httpd:2.4
           echo docker ps | grep my-apache-app | awk '{print $1}'
           echo "::set-output name=container-id::$(docker ps | grep my-apache-app | awk '{print $1}')"
@@ -26,3 +27,7 @@ jobs:
           cat Dockerfile
           # docker build -t created-image .
           docker images
+
+      - name: crean up workspace after action
+        sudo rm -rf ${{ github.workspace }}/*
+        sudo chown -R $(whoami):$(whoami) .    
