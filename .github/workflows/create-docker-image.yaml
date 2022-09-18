@@ -55,10 +55,8 @@ jobs:
     steps: #dockerコンテナ内でステップを実行
       - name: confirm-inside-docker
         run: |
+          find . -name "test.txt"        
           pwd
-          ls -al 
-
-      - name: crean up workspace after action
-        run: |
-          sudo rm -rf ${{ github.workspace }}/*
-          sudo chown -R $(whoami):$(whoami) .    
+          ls -al   
+          cd /usr/local/apache2/htdocs/
+          ls -al
